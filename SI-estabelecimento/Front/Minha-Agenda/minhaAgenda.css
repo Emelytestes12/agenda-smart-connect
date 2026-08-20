@@ -1,0 +1,87 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { background-color: #f4f5f8; color: #333; height: 100vh; overflow: hidden; }
+
+.app-layout { display: flex; height: 100vh; position: relative; }
+
+/* Lateral */
+.sidebar-agenda { width: 270px; background: #fff; border-right: 1px solid #e0e0e0; padding: 15px; display: flex; flex-direction: column; gap: 15px; overflow-y: auto; }
+.mini-calendario { background: #fafafa; border: 1px solid #eee; border-radius: 6px; padding: 10px; }
+.cal-header { display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 8px; font-size: 13px; }
+.cal-header button { border: none; background: none; cursor: pointer; font-size: 14px; padding: 2px 8px; border-radius: 3px; }
+.cal-header button:hover { background: #e2e8f0; }
+
+.cal-dias-semana, .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; gap: 2px; font-size: 11px; }
+.cal-dias-semana span { font-weight: bold; color: #777; padding-bottom: 4px; }
+.cal-grid button { border: none; background: transparent; padding: 6px 0; border-radius: 4px; cursor: pointer; font-size: 11px; }
+.cal-grid button:hover { background: #e0e7ff; }
+.cal-grid button.ativo { background: #2563eb; color: #fff; font-weight: bold; }
+.cal-grid .vazio { height: 25px; }
+
+/* Destaque Visual para Dias com Agendamento */
+.cal-grid button.tem-agendamento {
+  background-color: #dbeafe;
+  color: #1e40af;
+  font-weight: bold;
+  position: relative;
+}
+
+.cal-grid button.tem-agendamento::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background-color: #2563eb;
+  border-radius: 50%;
+}
+
+.cal-grid button.ativo.tem-agendamento::after {
+  background-color: #ffffff;
+}
+
+/* Filtros */
+.painel-filtros h3 { font-size: 12px; text-transform: uppercase; color: #777; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+.grupo-filtro { margin-bottom: 15px; display: flex; flex-direction: column; gap: 6px; }
+.header-filtro { display: flex; justify-content: space-between; align-items: center; }
+.header-filtro label { font-size: 12px; font-weight: 600; color: #555; }
+.btn-link { background: none; border: none; color: #2563eb; font-size: 11px; font-weight: bold; cursor: pointer; }
+.btn-link:hover { text-decoration: underline; }
+.grupo-filtro select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; background: #fff; }
+.check-group label { display: block; font-size: 12px; margin-top: 5px; cursor: pointer; }
+.texto-vazio { font-size: 11px; color: #999; font-style: italic; }
+
+/* Grid Principal */
+.agenda-main { flex: 1; display: flex; flex-direction: column; background: #fff; }
+.agenda-topo { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #e0e0e0; background: #fafafa; }
+.data-atual { display: flex; align-items: center; gap: 12px; }
+.data-atual h2 { font-size: 16px; color: #222; }
+.btn-hoje { padding: 6px 12px; border: 1px solid #ccc; background: #fff; border-radius: 4px; cursor: pointer; font-size: 12px; }
+.btn-hoje:hover { background: #f1f5f9; }
+.btn-agendar { background: #2563eb; color: #fff; border: none; padding: 10px 18px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 13px; }
+
+.grid-container { flex: 1; overflow-y: auto; }
+.tabela-agenda { width: 100%; border-collapse: collapse; }
+.tabela-agenda th { background: #f8fafc; border: 1px solid #e2e8f0; padding: 10px; text-align: center; position: sticky; top: 0; z-index: 2; font-size: 13px; color: #334155; }
+.col-hora { width: 70px; }
+.tabela-agenda td { border: 1px solid #edf2f7; height: 50px; vertical-align: top; padding: 2px; position: relative; }
+
+/* Cards de Serviço com Exclusão */
+.card-agendamento { background: #eff6ff; border-left: 4px solid #2563eb; border-radius: 4px; padding: 4px 6px; font-size: 11px; margin: 2px 0; color: #1e3a8a; position: relative; }
+.card-agendamento .titulo-card { font-weight: bold; display: block; font-size: 12px; padding-right: 12px; }
+.card-agendamento .sub-tag { font-size: 10px; color: #475569; display: block; }
+.btn-excluir-card { position: absolute; top: 2px; right: 4px; background: none; border: none; color: #ef4444; font-weight: bold; cursor: pointer; font-size: 12px; }
+.btn-excluir-card:hover { color: #991b1b; }
+
+.escondido { display: none !important; }
+
+/* Gavetas / Painéis */
+.painel-lateral { position: absolute; top: 0; right: -350px; width: 350px; height: 100%; background: #fff; box-shadow: -2px 0 10px rgba(0,0,0,0.15); transition: right 0.3s ease; z-index: 10; padding: 20px; }
+.painel-lateral.aberto { right: 0; }
+.painel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 15px; }
+.btn-fechar { border: none; background: none; font-size: 22px; cursor: pointer; color: #888; }
+.campo { margin-bottom: 12px; display: flex; flex-direction: column; gap: 4px; }
+.campo label { font-size: 12px; font-weight: bold; color: #555; }
+.campo input, .campo select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; }
+.btn-salvar { width: 100%; background: #2563eb; color: #fff; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }

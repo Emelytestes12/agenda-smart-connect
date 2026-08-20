@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Minha Agenda</title>
+  <link rel="stylesheet" href="minhaAgenda.css">
+</head>
+<body>
+
+  <div class="app-layout">
+    <!-- BARRA LATERAL -->
+    <aside class="sidebar-agenda">
+      <div class="mini-calendario">
+        <div class="cal-header">
+          <button id="btnPrevMes">&lt;</button>
+          <span id="calMesAno">Agosto 2026</span>
+          <button id="btnNextMes">&gt;</button>
+        </div>
+        <div class="cal-dias-semana">
+          <span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span>
+        </div>
+        <div class="cal-grid" id="calDias"></div>
+      </div>
+
+      <div class="painel-filtros">
+        <h3>Filtros & Cadastros</h3>
+
+        <!-- Gestão de Serviços -->
+        <div class="grupo-filtro">
+          <div class="header-filtro">
+            <label for="filtroServico">Serviço:</label>
+            <button id="btnNovoServico" class="btn-link">+ Cadastrar</button>
+          </div>
+          <select id="filtroServico">
+            <option value="todos">Todos os Serviços</option>
+          </select>
+        </div>
+
+        <!-- Gestão de Profissionais -->
+        <div class="grupo-filtro">
+          <div class="header-filtro">
+            <label>Profissionais:</label>
+            <button id="btnNovoProfissional" class="btn-link">+ Cadastrar</button>
+          </div>
+          <div class="check-group" id="containerChkProfissionais"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL DA AGENDA -->
+    <main class="agenda-main">
+      <header class="agenda-topo">
+        <div class="data-atual">
+          <button id="btnHoje" class="btn-hoje">Hoje</button>
+          <h2 id="tituloDataExibida">Terça-feira, 25/08/2026</h2>
+        </div>
+        <button id="btnNovoAgendamento" class="btn-agendar">+ Adicionar Horário</button>
+      </header>
+
+      <div class="grid-container">
+        <table class="tabela-agenda">
+          <thead>
+            <tr id="linhaCabecalhoGrid">
+              <th class="col-hora">Horário</th>
+            </tr>
+          </thead>
+          <tbody id="corpoGrid"></tbody>
+        </table>
+      </div>
+    </main>
+
+    <!-- PAINÉIS LATERAIS -->
+    <div id="painelAgendamento" class="painel-lateral">
+      <div class="painel-header">
+        <h2>Adicionar Horário</h2>
+        <button class="btn-fechar" data-fechar="painelAgendamento">&times;</button>
+      </div>
+      <form id="formAgendamento">
+        <div class="campo">
+          <label for="dataSelect">Data:</label>
+          <input type="date" id="dataSelect" required>
+        </div>
+        <div class="campo">
+          <label for="horaSelect">Horário:</label>
+          <input type="time" id="horaSelect" required value="09:00">
+        </div>
+        <div class="campo">
+          <label for="profissionalSelect">Profissional:</label>
+          <select id="profissionalSelect" required></select>
+        </div>
+        <div class="campo">
+          <label for="servicoSelect">Serviço:</label>
+          <select id="servicoSelect" required></select>
+        </div>
+        <div class="campo">
+          <label for="observacao">Observação (Opcional):</label>
+          <input type="text" id="observacao" placeholder="Ex: Reservado para cliente">
+        </div>
+        <button type="submit" class="btn-salvar">Salvar Horário</button>
+      </form>
+    </div>
+
+    <div id="painelProfissional" class="painel-lateral">
+      <div class="painel-header">
+        <h2>Cadastrar Profissional</h2>
+        <button class="btn-fechar" data-fechar="painelProfissional">&times;</button>
+      </div>
+      <form id="formProfissional">
+        <div class="campo">
+          <label for="nomeProfissional">Nome do Profissional:</label>
+          <input type="text" id="nomeProfissional" placeholder="Ex: Clara Silva" required>
+        </div>
+        <div class="campo">
+          <label for="especialidadeProfissional">Especialidade:</label>
+          <input type="text" id="especialidadeProfissional" placeholder="Ex: Nail Designer" required>
+        </div>
+        <button type="submit" class="btn-salvar">Salvar Profissional</button>
+      </form>
+    </div>
+
+    <div id="painelServico" class="painel-lateral">
+      <div class="painel-header">
+        <h2>Cadastrar Serviço</h2>
+        <button class="btn-fechar" data-fechar="painelServico">&times;</button>
+      </div>
+      <form id="formServico">
+        <div class="campo">
+          <label for="nomeServico">Nome do Serviço:</label>
+          <input type="text" id="nomeServico" placeholder="Ex: Unhas em gel" required>
+        </div>
+        <button type="submit" class="btn-salvar">Salvar Serviço</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="minhaAgenda.js"></script>
+</body>
+</html>
