@@ -9,11 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let mesCalendario = dataSelecionada.getMonth();
   let anoCalendario = dataSelecionada.getFullYear();
 
-  const horarios = [
-    '08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
-    '11:00', '11:30', '12:00', '12:30', '13:00', '13:30',
-    '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'
-  ];
+  // GERAÇÃO DINÂMICA DAS 24 HORAS CHEIAS (00:00 até 23:00)
+  const horarios = [];
+  for (let h = 0; h < 24; h++) {
+    const hora = String(h).padStart(2, '0');
+    horarios.push(`${hora}:00`);
+  }
 
   const nomesMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
   const nomesDiasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const filtroServico = document.getElementById('filtroServico');
   const selectProfissionalForm = document.getElementById('profissionalSelect');
   const selectServicoForm = document.getElementById('servicoSelect');
+  const selectHoraForm = document.getElementById('horaSelect'); // Campo de seleção do horário no formulário
   const tituloDataExibida = document.getElementById('tituloDataExibida');
   const inputDataForm = document.getElementById('dataSelect');
 
@@ -43,6 +45,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderizarMiniCalendario();
     renderizarGridHorarios();
+  }
+
+  // --- POPULAR SELEÇÃO DE HORÁRIOS DO FORMULÁRIO (24h) ---
+  function renderizarOpcoesHorario() {
+    if (!selectHoraForm) return;
+    selectHoraForm.innerHTML = '';
+    horarios.forEach(hora => {
+      const option = document.createElement('option');
+      option.value = hora;
+      option.textContent = hora;
+      selectHoraForm.appendChild(option);
+    });
   }
 
   // --- RENDERING DO MINI CALENDÁRIO COM DESTAQUE ---
@@ -66,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const dataIsoDia = `${anoCalendario}-${String(mesCalendario + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
 
-      // Aplica a classe de destaque se houver serviços agendados no dia
       if (agendamentos.some(item => item.data === dataIsoDia)) {
         btnDia.classList.add('tem-agendamento');
       }
@@ -103,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     atualizarDataSelecionada(new Date(2026, 7, 25));
   });
 
-  // --- RENDERING DA GRADE DE DADOS ---
+  // --- RENDERING DA GRADE DE DADOS (Horas Cheias) ---
   function renderizarServicos() {
     filtroServico.innerHTML = '<option value="todos">Todos os Serviços</option>';
     selectServicoForm.innerHTML = '';
@@ -140,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     horarios.forEach(hora => {
       const tr = document.createElement('tr');
-      let tdHtml = `<td class="col-hora" style="text-align: center; font-size: 11px; color: #666;">${hora}</td>`;
+      let tdHtml = `<td class="col-hora" style="text-align: center; font-size: 11px; color: #666; font-weight: 500;">${hora}</td>`;
 
       profissionais.forEach(prof => {
         tdHtml += `<td data-prof="${prof.nome}" data-hora="${hora}"></td>`;
@@ -191,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const novoItem = {
       id: Date.now(),
       data: dataInput,
-      hora: document.getElementById('horaSelect').value,
+      hora: selectHoraForm.value,
       prof: document.getElementById('profissionalSelect').value,
       servico: document.getElementById('servicoSelect').value,
       obs: document.getElementById('observacao').value
@@ -256,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Controles de Exibição de Painel
+  // Controles dos Painéis
   const abrirPainel = (id) => document.getElementById(id).classList.add('aberto');
   const fecharPainel = (id) => document.getElementById(id).classList.remove('aberto');
 
@@ -270,6 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
   filtroServico.addEventListener('change', aplicarFiltros);
 
   // Inicialização
+  renderizarOpcoesHorario();
   renderizarServicos();
   renderizarProfissionais();
   atualizarDataSelecionada(dataSelecionada);
