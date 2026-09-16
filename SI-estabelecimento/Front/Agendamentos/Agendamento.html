@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visão Geral de Agendamentos</title>
+  <link rel="stylesheet" href="Agendamento.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- SIDEBAR OPERACIONAL -->
+    <aside class="sidebar">
+      <div class="mini-calendar">
+        <div class="calendar-header">
+          <button class="cal-nav">&lt;</button>
+          <span class="cal-title">Agosto 2026</span>
+          <button class="cal-nav">&gt;</button>
+        </div>
+        <div class="calendar-grid">
+          <div class="cal-day-name">D</div>
+          <div class="cal-day-name">S</div>
+          <div class="cal-day-name">T</div>
+          <div class="cal-day-name">Q</div>
+          <div class="cal-day-name">Q</div>
+          <div class="cal-day-name">S</div>
+          <div class="cal-day-name">S</div>
+          
+          <span class="cal-day empty"></span>
+          <span class="cal-day empty"></span>
+          <span class="cal-day empty"></span>
+          <span class="cal-day empty"></span>
+          <span class="cal-day empty"></span>
+          <span class="cal-day empty"></span>
+          <span class="cal-day">1</span>
+          <span class="cal-day">2</span>
+          <span class="cal-day">3</span>
+          <span class="cal-day">4</span>
+          <span class="cal-day">5</span>
+          <span class="cal-day">6</span>
+          <span class="cal-day">7</span>
+          <span class="cal-day">8</span>
+          <span class="cal-day">9</span>
+          <span class="cal-day">10</span>
+          <span class="cal-day">11</span>
+          <span class="cal-day">12</span>
+          <span class="cal-day">13</span>
+          <span class="cal-day">14</span>
+          <span class="cal-day">15</span>
+          <span class="cal-day">16</span>
+          <span class="cal-day">17</span>
+          <span class="cal-day">18</span>
+          <span class="cal-day">19</span>
+          <span class="cal-day">20</span>
+          <span class="cal-day">21</span>
+          <span class="cal-day">22</span>
+          <span class="cal-day">23</span>
+          <span class="cal-day">24</span>
+          <span class="cal-day">25</span>
+          <span class="cal-day active">26</span>
+          <span class="cal-day">27</span>
+          <span class="cal-day">28</span>
+          <span class="cal-day">29</span>
+          <span class="cal-day">30</span>
+          <span class="cal-day">31</span>
+        </div>
+      </div>
+
+      <hr class="sidebar-divider">
+
+      <h3 class="section-title">FILTROS OPERACIONAIS</h3>
+      
+      <div class="form-group">
+        <label for="search-input">Buscar Cliente (Nome / Tel):</label>
+        <input type="text" id="search-input" placeholder="Digite nome ou telefone...">
+      </div>
+
+      <div class="form-group">
+        <label>Status do Agendamento:</label>
+        <div class="checkbox-group">
+          <label class="checkbox-item"><input type="checkbox" class="filter-status" value="confirmado" checked> Confirmados</label>
+          <label class="checkbox-item"><input type="checkbox" class="filter-status" value="aguardando" checked> Aguardando</label>
+          <label class="checkbox-item"><input type="checkbox" class="filter-status" value="finalizado" checked> Finalizados</label>
+          <label class="checkbox-item"><input type="checkbox" class="filter-status" value="cancelado" checked> Cancelados</label>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="date-controls">
+          <button class="btn-today" id="btn-today">Hoje</button>
+          <h2 class="current-date-title" id="selected-date-display">Visão do Dia: 26/08/2026</h2>
+        </div>
+        <button id="btn-open-drawer" class="btn-primary">+ Novo Agendamento</button>
+      </header>
+
+      <div class="table-container">
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>Horário</th>
+              <th>Cliente / WhatsApp</th>
+              <th>Perfil / Presenças</th>
+              <th>Serviço</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="schedule-body">
+            <!-- AGENDAMENTOS DO DIA -->
+            <tr data-date="2026-08-26" data-status="confirmado">
+              <td class="time-col">09:00</td>
+              <td>
+                <strong class="client-name">Mariana Souza</strong>
+                <span class="client-phone">(11) 98765-4321</span>
+              </td>
+              <td>
+                <span class="badge-profile badge-risco">⚠️ Risco No-Show</span>
+                <span class="metrics-text">10 Presenças / 2 Faltas</span>
+              </td>
+              <td>Maquiagem (Carla)</td>
+              <td><span class="status-badge status-confirmado">Confirmado</span></td>
+              <td>
+                <select class="status-select">
+                  <option value="">Mudar Status...</option>
+                  <option value="confirmado">Confirmado</option>
+                  <option value="finalizado">Finalizado</option>
+                  <option value="cancelado">Cancelado</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr data-date="2026-08-26" data-status="aguardando">
+              <td class="time-col">10:30</td>
+              <td>
+                <strong class="client-name">Lucas Mendes</strong>
+                <span class="client-phone">(11) 97777-8888</span>
+              </td>
+              <td>
+                <span class="badge-profile badge-frequente">Frequente</span>
+                <span class="metrics-text">8 Presenças / 0 Faltas</span>
+              </td>
+              <td>Corte de Cabelo (Carla)</td>
+              <td><span class="status-badge status-aguardando">Aguardando</span></td>
+              <td>
+                <select class="status-select">
+                  <option value="">Mudar Status...</option>
+                  <option value="confirmado">Confirmado</option>
+                  <option value="finalizado">Finalizado</option>
+                  <option value="cancelado">Cancelado</option>
+                </select>
+              </td>
+            </tr>
+
+            <!-- LINHA DIVISÓRIA -->
+            <tr class="date-divider-row" id="divider-row">
+              <td colspan="6">
+                <div class="divider-label">
+                  <span>OUTRAS DATAS / PRÓXIMOS AGENDAMENTOS</span>
+                </div>
+              </td>
+            </tr>
+
+            <!-- DEMAIS AGENDAMENTOS -->
+            <tr data-date="2026-08-27" data-status="aguardando">
+              <td class="time-col">09:00 <small class="date-subtext">(27/08)</small></td>
+              <td>
+                <strong class="client-name">Luciana</strong>
+                <span class="client-phone">83998185848</span>
+              </td>
+              <td>
+                <span class="badge-profile badge-frequente">Novo Cliente</span>
+                <span class="metrics-text">0 Presenças / 0 Faltas</span>
+              </td>
+              <td>Maquiagem (Carla)</td>
+              <td><span class="status-badge status-aguardando">Aguardando</span></td>
+              <td>
+                <select class="status-select">
+                  <option value="">Mudar Status...</option>
+                  <option value="confirmado">Confirmado</option>
+                  <option value="finalizado">Finalizado</option>
+                  <option value="cancelado">Cancelado</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <!-- DRAWER / MODAL DE NOVO AGENDAMENTO -->
+    <div id="drawer-overlay" class="drawer-overlay"></div>
+    <aside id="drawer" class="drawer">
+      <div class="drawer-header">
+        <h3>Novo Agendamento</h3>
+        <button id="btn-close-drawer" class="btn-close">&times;</button>
+      </div>
+
+      <form id="agendamento-form" class="drawer-body">
+        <div class="form-group">
+          <label for="input-telefone">WhatsApp / Telefone (ID):</label>
+          <input type="text" id="input-telefone" required placeholder="(11) 90000-0000">
+        </div>
+
+        <div class="form-group">
+          <label for="input-cliente">Nome do Cliente:</label>
+          <input type="text" id="input-cliente" required placeholder="Ex: Mariana Souza">
+        </div>
+
+        <div class="form-group">
+          <label for="input-data">Data:</label>
+          <input type="date" id="input-data" required value="2026-08-26">
+        </div>
+
+        <div class="form-group">
+          <label for="input-hora">Horário:</label>
+          <input type="time" id="input-hora" required value="09:00">
+        </div>
+
+        <div class="form-group">
+          <label for="input-servico">Serviço:</label>
+          <select id="input-servico" required>
+            <option value="">Selecione...</option>
+            <option value="Maquiagem (Carla)">Maquiagem (Carla)</option>
+            <option value="Corte de Cabelo (Carla)">Corte de Cabelo (Carla)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary btn-block">Confirmar Agendamento</button>
+      </form>
+    </aside>
+
+  </div>
+
+  <script src="Agendamento.js"></script>
+</body>
+</html>
