@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Clientes</title>
+  <link rel="stylesheet" href="Cliente.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- SIDEBAR ESQUERDA (BUSCA) -->
+    <aside class="sidebar">
+      <h3 class="section-title">BUSCAR CLIENTE</h3>
+      
+      <div class="form-group">
+        <label for="search-client">Nome ou WhatsApp:</label>
+        <input type="text" id="search-client" placeholder="Ex: Mariana ou (11) 98765...">
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2 class="page-title">Cadastro de Clientes</h2>
+        <button id="btn-open-drawer" class="btn-primary">+ Novo Cliente</button>
+      </header>
+
+      <div class="table-container">
+        <table class="client-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>WhatsApp / Telefone (ID)</th>
+              <th>Observações</th>
+              <th style="text-align: right;">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="client-body">
+            <tr>
+              <td><strong class="client-name">Mariana Souza</strong></td>
+              <td><span class="client-phone">(11) 98765-4321</span></td>
+              <td class="client-obs">Alérgica a produtos com amônia.</td>
+              <td style="text-align: right;">
+                <button class="btn-primary btn-sm btn-agendar">+ Agendar Serviço</button>
+                <button class="btn-secondary btn-sm btn-editar">Editar</button>
+              </td>
+            </tr>
+            <tr>
+              <td><strong class="client-name">Lucas Mendes</strong></td>
+              <td><span class="client-phone">(11) 97777-8888</span></td>
+              <td class="client-obs">-</td>
+              <td style="text-align: right;">
+                <button class="btn-primary btn-sm btn-agendar">+ Agendar Serviço</button>
+                <button class="btn-secondary btn-sm btn-editar">Editar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <!-- DRAWER DE CADASTRO / EDIÇÃO -->
+    <div id="drawer-overlay" class="drawer-overlay"></div>
+    <aside id="drawer" class="drawer">
+      <div class="drawer-header">
+        <h3 id="drawer-title">Novo Cliente</h3>
+        <button id="btn-close-drawer" class="btn-close">&times;</button>
+      </div>
+
+      <form id="cliente-form" class="drawer-body">
+        <div class="form-group">
+          <label for="input-nome">Nome Completo:</label>
+          <input type="text" id="input-nome" required placeholder="Ex: Mariana Souza">
+        </div>
+
+        <div class="form-group">
+          <label for="input-telefone">WhatsApp / Telefone (ID):</label>
+          <input type="text" id="input-telefone" required placeholder="(11) 90000-0000">
+        </div>
+
+        <div class="form-group">
+          <label for="input-obs">Observações do Cliente:</label>
+          <input type="text" id="input-obs" placeholder="Preferências, restrições, etc.">
+        </div>
+
+        <button type="submit" class="btn-primary btn-block">Salvar Cliente</button>
+      </form>
+    </aside>
+
+  </div>
+
+  <script src="Cliente.js"></script>
+</body>
+</html>
