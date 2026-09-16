@@ -1,0 +1,124 @@
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-blue-light: #eff6ff;
+  --brand-blue: #2563eb;
+  --brand-blue-dark: #1d4ed8;
+  --brand-blue-navy: #1e3a8a;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  --border-color: #e2e8f0;
+  --border-blue: #bfdbfe;
+  --shadow-md: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+body { background-color: var(--bg-secondary); color: var(--text-main); height: 100vh; overflow: hidden; }
+.app-container { display: flex; height: 100vh; width: 100vw; }
+
+/* SIDEBAR E CARDS DE RESUMO */
+.sidebar { width: 280px; min-width: 280px; background: var(--bg-primary); border-right: 1px solid var(--border-color); padding: 20px; overflow-y: auto; }
+
+.queue-summary-card {
+  background: var(--bg-blue-light);
+  border: 1px solid var(--border-blue);
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-item { display: flex; justify-content: space-between; align-items: center; }
+.summary-label { font-size: 12px; color: var(--brand-blue-navy); font-weight: 600; }
+.summary-value { font-size: 16px; color: var(--brand-blue); font-weight: 800; }
+
+.sidebar-divider { border: 0; border-top: 1px solid var(--border-color); margin: 16px 0; }
+.section-title { font-size: 11px; font-weight: 700; color: var(--brand-blue-navy); margin-bottom: 12px; letter-spacing: 0.5px; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.form-group label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+input[type="text"], select { width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13px; outline: none; }
+input:focus, select:focus { border-color: var(--brand-blue); }
+
+/* ÁREA PRINCIPAL */
+.main-content { flex: 1; display: flex; flex-direction: column; background: var(--bg-primary); overflow: hidden; }
+.top-bar { height: 64px; border-bottom: 1px solid var(--border-color); padding: 0 28px; display: flex; justify-content: space-between; align-items: center; }
+.current-date-title { font-size: 18px; font-weight: 700; color: var(--brand-blue-navy); }
+
+.btn-primary { background: var(--brand-blue); color: #fff; border: none; padding: 9px 16px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; }
+.btn-primary:hover { background: var(--brand-blue-dark); }
+
+/* TABELA E BADGES DE POSIÇÃO */
+.table-container { flex: 1; overflow-y: auto; padding: 0 28px 28px; }
+.schedule-table { width: 100%; border-collapse: collapse; margin-top: 16px; text-align: left; }
+.schedule-table th { background: var(--bg-secondary); color: var(--brand-blue-navy); font-size: 12px; padding: 14px 16px; border-bottom: 2px solid var(--border-color); position: sticky; top: 0; z-index: 10; }
+.schedule-table td { padding: 16px; border-bottom: 1px solid var(--border-color); font-size: 14px; vertical-align: middle; }
+.schedule-table tbody tr:hover { background-color: var(--bg-blue-light); }
+
+.pos-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  font-weight: 700;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.pos-badge.pos-next {
+  background: var(--brand-blue);
+  color: #ffffff;
+  border-color: var(--brand-blue);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.time-col { font-weight: 700; color: var(--text-muted); }
+.client-name { display: block; font-weight: 600; color: var(--text-main); }
+.client-phone { display: block; font-size: 12px; color: var(--text-muted); }
+.metrics-text { display: block; font-size: 12px; color: var(--text-muted); }
+.date-subtext { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+/* BADGES DE STATUS DE AUTOMAÇÃO WHATSAPP */
+.status-badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.status-aguardando { background: var(--bg-secondary); color: var(--text-muted); border: 1px solid var(--border-color); }
+.status-disparado { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+.status-aceito { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+
+.badge-slot {
+  display: inline-block;
+  background: var(--bg-blue-light);
+  color: var(--brand-blue-dark);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid var(--border-blue);
+}
+
+/* BOTÕES DE AÇÃO */
+.actions-cell { display: flex; gap: 8px; }
+.btn-action { padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; }
+.btn-call { background: var(--brand-blue); color: #ffffff; }
+.btn-call:hover { background: var(--brand-blue-dark); }
+.btn-resend { background: #f1f5f9; color: var(--text-main); border: 1px solid var(--border-color); }
+.btn-resend:hover { background: var(--bg-blue-light); color: var(--brand-blue); border-color: var(--border-blue); }
+.btn-remove { background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); }
+.btn-remove:hover { color: #ef4444; border-color: #fca5a5; background: #fef2f2; }
+
+/* DRAWER / MODAL */
+.drawer-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(2px); display: none; z-index: 100; }
+.drawer { position: fixed; top: 0; right: -420px; width: 400px; height: 100vh; background: var(--bg-primary); box-shadow: var(--shadow-md); z-index: 101; display: flex; flex-direction: column; transition: right 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.drawer.open { right: 0; }
+.drawer-overlay.open { display: block; }
+
+.drawer-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: var(--bg-secondary); }
+.drawer-header h3 { font-size: 16px; color: var(--brand-blue-navy); }
+.btn-close { background: none; border: none; font-size: 20px; color: var(--text-muted); cursor: pointer; }
+.drawer-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.btn-block { width: 100%; margin-top: 12px; padding: 12px; }

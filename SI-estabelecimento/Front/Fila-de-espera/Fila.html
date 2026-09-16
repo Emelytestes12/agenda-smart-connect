@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fila de Espera Automática</title>
+  <link rel="stylesheet" href="Fila.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- SIDEBAR OPERACIONAL DA FILA -->
+    <aside class="sidebar">
+      <div class="queue-summary-card">
+        <div class="summary-item">
+          <span class="summary-label">Pessoas na Fila</span>
+          <strong class="summary-value" id="total-queue-count">3</strong>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Disparos Hoje</span>
+          <strong class="summary-value">12 envios</strong>
+        </div>
+      </div>
+
+      <hr class="sidebar-divider">
+
+      <h3 class="section-title">FILTROS DA FILA</h3>
+      
+      <div class="form-group">
+        <label for="search-input">Buscar Cliente (Nome / Tel):</label>
+        <input type="text" id="search-input" placeholder="Digite nome ou telefone...">
+      </div>
+
+      <div class="form-group">
+        <label for="filter-service">Filtrar por Serviço:</label>
+        <select id="filter-service">
+          <option value="all">Todos os Serviços</option>
+          <option value="Maquiagem">Maquiagem</option>
+          <option value="Corte de Cabelo">Corte de Cabelo</option>
+          <option value="Manicure">Manicure</option>
+        </select>
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL DA FILA -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="date-controls">
+          <h2 class="current-date-title">Fila de Espera (WhatsApp Bot)</h2>
+        </div>
+        <button id="btn-open-drawer" class="btn-primary">+ Entrar na Fila</button>
+      </header>
+
+      <div class="table-container">
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>Posição</th>
+              <th>Cliente / WhatsApp</th>
+              <th>Serviço / Profissional</th>
+              <th>Vaga Ofertada / Origem</th>
+              <th>Status do WhatsApp</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="queue-body">
+            <!-- ITEM 1: CLIENTE COM VAGA LIBERADA E DISPARO FEITO -->
+            <tr data-service="Maquiagem">
+              <td><span class="pos-badge pos-next">1º</span></td>
+              <td>
+                <strong class="client-name">Ana Beatriz</strong>
+                <span class="client-phone">(11) 98888-1111</span>
+              </td>
+              <td>
+                <strong>Maquiagem</strong>
+                <span class="metrics-text">Prefere: Carla</span>
+              </td>
+              <td>
+                <span class="badge-slot">Vaga das 15:00</span>
+                <span class="date-subtext">Cancelado por: Maria</span>
+              </td>
+              <td>
+                <span class="status-badge status-disparado">📱 Zap Disparado (14:05)</span>
+              </td>
+              <td class="actions-cell">
+                <button class="btn-action btn-call btn-fit">Encaixar</button>
+                <button class="btn-action btn-resend">Reenviar Zap</button>
+              </td>
+            </tr>
+
+            <!-- ITEM 2: CLIENTE QUE ACEITOU A VAGA VIA ZAP -->
+            <tr data-service="Corte de Cabelo">
+              <td><span class="pos-badge">2º</span></td>
+              <td>
+                <strong class="client-name">Carlos Eduardo</strong>
+                <span class="client-phone">(11) 97777-2222</span>
+              </td>
+              <td>
+                <strong>Corte de Cabelo</strong>
+                <span class="metrics-text">Qualquer profissional</span>
+              </td>
+              <td>
+                <span class="badge-slot">Vaga das 16:30</span>
+                <span class="date-subtext">Cancelado por: João</span>
+              </td>
+              <td>
+                <span class="status-badge status-aceito">✅ Aceitou via Zap</span>
+              </td>
+              <td class="actions-cell">
+                <button class="btn-action btn-call btn-fit">Confirmar Encaixe</button>
+                <button class="btn-action btn-remove">Remover</button>
+              </td>
+            </tr>
+
+            <!-- ITEM 3: CLIENTE AGUARDANDO NOVOS CANCELAMENTOS -->
+            <tr data-service="Manicure">
+              <td><span class="pos-badge">3º</span></td>
+              <td>
+                <strong class="client-name">Fernanda Lima</strong>
+                <span class="client-phone">(11) 96666-3333</span>
+              </td>
+              <td>
+                <strong>Manicure</strong>
+                <span class="metrics-text">Prefere: Julia</span>
+              </td>
+              <td>
+                <span class="time-col">Sem Vaga</span>
+                <span class="date-subtext">Aguardando cancelamento</span>
+              </td>
+              <td>
+                <span class="status-badge status-aguardando">Na Fila</span>
+              </td>
+              <td class="actions-cell">
+                <button class="btn-action btn-call btn-notify">Notificar Zap</button>
+                <button class="btn-action btn-remove">Remover</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <!-- DRAWER / MODAL -->
+    <div id="drawer-overlay" class="drawer-overlay"></div>
+    <aside id="drawer" class="drawer">
+      <div class="drawer-header">
+        <h3>Adicionar à Fila de Espera</h3>
+        <button id="btn-close-drawer" class="btn-close">&times;</button>
+      </div>
+
+      <form id="queue-form" class="drawer-body">
+        <div class="form-group">
+          <label for="input-telefone">WhatsApp / Telefone:</label>
+          <input type="text" id="input-telefone" required placeholder="(11) 90000-0000">
+        </div>
+
+        <div class="form-group">
+          <label for="input-cliente">Nome do Cliente:</label>
+          <input type="text" id="input-cliente" required placeholder="Ex: Ana Beatriz">
+        </div>
+
+        <div class="form-group">
+          <label for="input-servico">Serviço Desejado:</label>
+          <select id="input-servico" required>
+            <option value="">Selecione...</option>
+            <option value="Maquiagem">Maquiagem</option>
+            <option value="Corte de Cabelo">Corte de Cabelo</option>
+            <option value="Manicure">Manicure</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="input-profissional">Profissional Preferido:</label>
+          <select id="input-profissional">
+            <option value="Qualquer disponível">Qualquer disponível</option>
+            <option value="Carla">Carla</option>
+            <option value="Julia">Julia</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary btn-block">Adicionar Posição na Fila</button>
+      </form>
+    </aside>
+
+  </div>
+
+  <script src="Fila.js"></script>
+</body>
+</html>
