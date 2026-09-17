@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configurações do WhatsApp</title>
+  <link rel="stylesheet" href="whats.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- SIDEBAR DE STATUS DA CONEXÃO -->
+    <aside class="sidebar">
+      <div class="status-connection-card">
+        <div class="connection-header">
+          <span class="status-dot online"></span>
+          <strong>WhatsApp Conectado</strong>
+        </div>
+        <p class="phone-number">(11) 99999-8888</p>
+        <span class="metrics-text">Status: Bot Operacional</span>
+      </div>
+
+      <hr class="sidebar-divider">
+
+      <h3 class="section-title">REGRAS DE DISPARO</h3>
+      
+      <div class="sidebar-info-box">
+        <p><strong>Automação Ativa:</strong> As respostas de confirmação no WhatsApp atualizam a agenda e a fila de espera instantaneamente.</p>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL (3 CARDS DE CONFIGURAÇÃO) -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2 class="current-date-title">Automações do WhatsApp</h2>
+      </header>
+
+      <div class="dashboard-grid">
+        
+        <!-- CARD 1: LEMBRETE AUTOMÁTICO DE CONFIRMAÇÃO -->
+        <section class="config-card">
+          <div class="card-header">
+            <h3>1. Lembrete de Confirmação Automática</h3>
+            <label class="switch">
+              <input type="checkbox" id="toggle-reminders" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <p class="card-desc">Envia uma mensagem automática solicitando a confirmação da presença. Ao clicar em "Confirmar", o agendamento é validado automaticamente no sistema.</p>
+
+          <div class="form-group">
+            <label for="select-antecedence">Enviar Lembrete Com Antecedência De:</label>
+            <select id="select-antecedence">
+              <option value="1">1 Dia antes do agendamento</option>
+              <option value="2">2 Dias antes do agendamento</option>
+              <option value="12h">12 Horas antes do agendamento</option>
+              <option value="6h">6 Horas antes do agendamento</option>
+            </select>
+          </div>
+
+          <!-- SIMULAÇÃO DO MENSAGEM NO ZAP -->
+          <div class="chat-preview-box">
+            <span class="preview-tag">Prévia do Botão Interativo:</span>
+            <div class="chat-bubble">
+              Olá <strong>[Nome]</strong>! Confirmamos seu horário para amanhã às <strong>[Horário]</strong> com <strong>[Profissional]</strong>?
+              <div class="whatsapp-btn-mock">✅ Confirmar Agendamento</div>
+              <div class="whatsapp-btn-mock danger">❌ Cancelar / Reagendar</div>
+            </div>
+          </div>
+
+          <button id="btn-save-reminders" class="btn-primary btn-block">Salvar Regra de Lembrete</button>
+        </section>
+
+        <!-- CARD 2: NOTIFICAÇÃO DE VAGA POR POSIÇÃO DA FILA -->
+        <section class="config-card">
+          <div class="card-header">
+            <h3>2. Notificar Vaga por Posição (Fila)</h3>
+          </div>
+          <p class="card-desc">Selecione a posição da fila de espera para disparar a notificação da vaga desmarcada diretamente no WhatsApp do cliente.</p>
+
+          <div class="form-group">
+            <label for="select-queue-position">Selecione o Cliente / Posição:</label>
+            <select id="select-queue-position">
+              <option value="1">1º da Fila - Ana Beatriz (Maquiagem)</option>
+              <option value="2">2º da Fila - Carlos Eduardo (Corte)</option>
+              <option value="3">3º da Fila - Fernanda Lima (Manicure)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="input-slot-info">Horário da Vaga Liberada:</label>
+            <input type="text" id="input-slot-info" value="Hoje às 15:00 - Profissional Carla" placeholder="Ex: Hoje às 15:00">
+          </div>
+
+          <!-- PREVIEW DA NOTIFICAÇÃO DA VAGA -->
+          <div class="chat-preview-box">
+            <span class="preview-tag">Mensagem Enviada:</span>
+            <div class="chat-bubble">
+              Olá! Uma vaga vagou para <strong><span id="preview-slot">Hoje às 15:00</span></strong>. Deseja garantir esse horário?
+              <div class="whatsapp-btn-mock">⚡ Sim! Quero essa vaga</div>
+            </div>
+          </div>
+
+          <button id="btn-send-slot-notify" class="btn-primary btn-block">Disparar Notificação de Vaga</button>
+        </section>
+
+        <!-- CARD 3: COMUNICADOS E AVISOS GERAIS -->
+        <section class="config-card full-width">
+          <div class="card-header">
+            <h3>3. Envio de Comunicados Rápidos</h3>
+          </div>
+          <p class="card-desc">Escreva uma mensagem para disparar avisos, promoções ou recados importantes para seus clientes via WhatsApp.</p>
+
+          <div class="form-group">
+            <label for="select-broadcast-target">Enviar para:</label>
+            <select id="select-broadcast-target">
+              <option value="queue">Apenas Pessoas da Fila de Espera</option>
+              <option value="today">Clientes Agendados Hoje</option>
+              <option value="all">Todos os Clientes da Base</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="textarea-announcement">Texto do Comunicado:</label>
+            <textarea id="textarea-announcement" rows="4" placeholder="Digite seu comunicado aqui... Ex: Informamos que abriremos em horário especial neste feriado!"></textarea>
+          </div>
+
+          <button id="btn-send-broadcast" class="btn-primary"> Disparar Comunicado</button>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="whats.js"></script>
+</body>
+</html>
