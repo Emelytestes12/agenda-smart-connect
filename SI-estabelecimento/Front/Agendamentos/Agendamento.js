@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectedDateDisplay = document.getElementById('selected-date-display');
   const btnToday = document.getElementById('btn-today');
 
+  // Mapeamento de Rótulos e Classes CSS (Atende RF03 e RNF03)
+  const statusMap = {
+    confirmado: { text: 'Confirmado', class: 'status-confirmado' },
+    aguardando: { text: 'Aguardando', class: 'status-aguardando' },
+    finalizado: { text: 'Finalizado', class: 'status-finalizado' },
+    cancelado: { text: 'Cancelado', class: 'status-cancelado' }
+  };
+
   // 1. ABRIR E FECHAR DRAWER
   function openDrawer() {
     drawer.classList.add('open');
@@ -39,21 +47,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const row = e.target.closest('tr');
       const badge = row.querySelector('.status-badge');
 
+      // Atualiza atributo de dados e classe do badge conforme a taxonomia
       row.setAttribute('data-status', selectedValue);
       badge.className = 'status-badge';
 
-      if (selectedValue === 'confirmado') {
-        badge.classList.add('status-confirmado');
-        badge.textContent = 'Confirmado';
-      } else if (selectedValue === 'finalizado') {
-        badge.classList.add('status-finalizado');
-        badge.textContent = 'Finalizado';
-      } else if (selectedValue === 'cancelado') {
-        badge.classList.add('status-cancelado');
-        badge.textContent = 'Cancelado';
+      if (statusMap[selectedValue]) {
+        badge.classList.add(statusMap[selectedValue].class);
+        badge.textContent = statusMap[selectedValue].text;
       }
 
       e.target.value = "";
+
+      // Atualiza a visibilidade da tabela de acordo com os filtros de tela ativos
+      applyFilters();
     }
   });
 
@@ -64,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
       .filter(checkbox => checkbox.checked)
       .map(checkbox => checkbox.value);
 
-    // Seleciona apenas as linhas de agendamento (ignora a linha divisória)
     const rows = scheduleBody.querySelectorAll('tr:not(.date-divider-row)');
 
     rows.forEach(row => {
@@ -75,11 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const matchesStatus = activeStatuses.includes(rowStatus);
       const matchesSearch = clientName.includes(query) || clientPhone.includes(query);
 
-      if (matchesStatus && matchesSearch) {
-        row.style.display = '';
-      } else {
-        row.style.display = 'none';
-      }
+      row.style.display = (matchesStatus && matchesSearch) ? '' : 'none';
     });
   }
 
@@ -141,19 +142,20 @@ document.addEventListener('DOMContentLoaded', () => {
         <select class="status-select">
           <option value="">Mudar Status...</option>
           <option value="confirmado">Confirmado</option>
+          <option value="aguardando">Aguardando</option>
           <option value="finalizado">Finalizado</option>
           <option value="cancelado">Cancelado</option>
         </select>
       </td>
     `;
 
-    // Insere antes da divisória se for para o dia atual (26/08), ou no final se for outra data
     if (isToday) {
       scheduleBody.insertBefore(tr, dividerRow);
     } else {
       scheduleBody.appendChild(tr);
     }
 
+    applyFilters();
     closeDrawer();
   });
 });
