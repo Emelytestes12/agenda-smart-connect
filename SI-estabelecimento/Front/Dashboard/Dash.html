@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Performance de Agendamentos</title>
+  <link rel="stylesheet" href="Dash.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- SIDEBAR DE FILTROS E MÉTRICA OPERACIONAL -->
+    <aside class="sidebar">
+      <div class="summary-period-card">
+        <span class="summary-label">FILTRAR PERÍODO</span>
+        <div class="period-buttons">
+          <button class="btn-period" data-period="today">Hoje</button>
+          <button class="btn-period active" data-period="week">Semana</button>
+          <button class="btn-period" data-period="month">Mês</button>
+        </div>
+      </div>
+
+      <hr class="sidebar-divider">
+
+      <h3 class="section-title">EFICIÊNCIA DA FILA</h3>
+      <div class="sidebar-metric-box">
+        <span class="metrics-label">Tempo Médio de Reencaixe</span>
+        <strong class="sidebar-metric-value" id="kpi-avg-time">3.5 min</strong>
+        <span class="growth-tag positive">⚡ Resposta via Bot Zap em < 5 min</span>
+      </div>
+
+      <div class="sidebar-info-box margin-top">
+        <p><strong>Meta do Sistema:</strong> Reduzir horários vagos e reencaixar desmarcações automaticamente via WhatsApp em menos de 10 minutos.</p>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL DO DASHBOARD -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2 class="current-date-title">Painel de Eficiência e Anti-No-Show</h2>
+        <a href="../Fila-de-espera/Fila.html" class="btn-primary">Ver Fila ao Vivo</a>
+      </header>
+
+      <div class="dashboard-body">
+        
+        <!-- CARDS DE KPIS PRINCIPAIS -->
+        <div class="kpi-grid">
+          
+          <div class="kpi-card highlight-green">
+            <div class="kpi-header">
+              <span>Vagas Salvas pela Fila</span>
+              <span class="kpi-icon">⚡</span>
+            </div>
+            <strong class="kpi-value" id="kpi-recovered-slots">12</strong>
+            <span class="kpi-subtext">Horários recuperados</span>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span>Taxa de No-Show (Faltas)</span>
+              <span class="kpi-icon">🛡️</span>
+            </div>
+            <strong class="kpi-value text-green" id="kpi-noshow-rate">1.8%</strong>
+            <span class="kpi-subtext">Redução de 12% este mês</span>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span>Taxa de Ocupação</span>
+              <span class="kpi-icon">📅</span>
+            </div>
+            <strong class="kpi-value" id="kpi-occupancy">96.5%</strong>
+            <span class="kpi-subtext">Apenas 3.5% de ociosidade</span>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span>Conversão do Bot Zap</span>
+              <span class="kpi-icon">📱</span>
+            </div>
+            <strong class="kpi-value text-blue" id="kpi-conversion">88%</strong>
+            <span class="kpi-subtext">Aceitam a vaga ofertada</span>
+          </div>
+
+        </div>
+
+        <!-- VISUALIZAÇÃO GRÁFICA + FEED DE REENCAIXES -->
+        <div class="dashboard-main-grid">
+          
+          <!-- GRÁFICO COMPARATIVO EM BARRAS -->
+          <section class="content-card">
+            <div class="card-title-bar">
+              <h3>Vagas Salvas vs. Faltas Não Preenchidas</h3>
+              <span class="badge-tag">Semana Atual</span>
+            </div>
+
+            <div class="chart-bars-container">
+              <div class="bar-group">
+                <div class="bar-wrapper">
+                  <div class="bar bar-lost" style="height: 15%;" title="2 Perdidas"></div>
+                  <div class="bar bar-saved" style="height: 85%;" title="8 Salvas"></div>
+                </div>
+                <span class="bar-label">Seg</span>
+              </div>
+
+              <div class="bar-group">
+                <div class="bar-wrapper">
+                  <div class="bar bar-lost" style="height: 10%;" title="1 Perdida"></div>
+                  <div class="bar bar-saved" style="height: 90%;" title="9 Salvas"></div>
+                </div>
+                <span class="bar-label">Ter</span>
+              </div>
+
+              <div class="bar-group">
+                <div class="bar-wrapper">
+                  <div class="bar bar-lost" style="height: 5%;" title="0 Perdidas"></div>
+                  <div class="bar bar-saved" style="height: 95%;" title="11 Salvas"></div>
+                </div>
+                <span class="bar-label">Qua</span>
+              </div>
+
+              <div class="bar-group">
+                <div class="bar-wrapper">
+                  <div class="bar bar-lost" style="height: 20%;" title="3 Perdidas"></div>
+                  <div class="bar bar-saved" style="height: 80%;" title="7 Salvas"></div>
+                </div>
+                <span class="bar-label">Qui</span>
+              </div>
+
+              <div class="bar-group">
+                <div class="bar-wrapper">
+                  <div class="bar bar-lost" style="height: 0%;" title="0 Perdidas"></div>
+                  <div class="bar bar-saved" style="height: 100%;" title="14 Salvas"></div>
+                </div>
+                <span class="bar-label">Sex</span>
+              </div>
+            </div>
+
+            <div class="chart-legend">
+              <div class="legend-item"><span class="color-dot saved"></span> Horários Recuperados (Fila Zap)</div>
+              <div class="legend-item"><span class="color-dot lost"></span> Horários Perdidos / Sem Reencaixe</div>
+            </div>
+          </section>
+
+          <!-- FEED DE ATIVIDADES DE REENCAIXE -->
+          <section class="content-card">
+            <div class="card-title-bar">
+              <h3>Histórico de Reencaixes</h3>
+              <span class="status-pulse">Ao Vivo</span>
+            </div>
+
+            <ul class="activity-feed">
+              <li class="feed-item success">
+                <div class="feed-icon">✅</div>
+                <div class="feed-content">
+                  <strong>Vaga das 15:00 Recuperada</strong>
+                  <p>Maria desmarcou → <strong>Ana Beatriz (1º da Fila)</strong> aceitou pelo WhatsApp em 2 min.</p>
+                  <span class="feed-time">Há 12 minutos</span>
+                </div>
+              </li>
+
+              <li class="feed-item success">
+                <div class="feed-icon">✅</div>
+                <div class="feed-content">
+                  <strong>Vaga das 11:30 Recuperada</strong>
+                  <p>Juliana desmarcou → <strong>Carlos Eduardo (2º da Fila)</strong> confirmou via Zap.</p>
+                  <span class="feed-time">Há 1 hora</span>
+                </div>
+              </li>
+
+              <li class="feed-item warning">
+                <div class="feed-icon">📱</div>
+                <div class="feed-content">
+                  <strong>Lembretes Automáticos Disparados</strong>
+                  <p>Notificação de confirmação enviada para 6 clientes agendados amanhã.</p>
+                  <span class="feed-time">Há 3 horas</span>
+                </div>
+              </li>
+            </ul>
+          </section>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="Dash.js"></script>
+</body>
+</html>
